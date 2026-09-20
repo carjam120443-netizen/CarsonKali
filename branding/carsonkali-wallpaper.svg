@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080" viewBox="0 0 1920 1080">
+<defs>
+  <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#080d18"/><stop offset="1" stop-color="#111a2d"/></linearGradient>
+  <radialGradient id="glow"><stop offset="0" stop-color="#1687ff" stop-opacity=".28"/><stop offset="1" stop-color="#1687ff" stop-opacity="0"/></radialGradient>
+</defs>
+<rect width="1920" height="1080" fill="url(#bg)"/>
+<circle cx="1510" cy="420" r="650" fill="url(#glow)"/>
+<g fill="none" stroke="#2b78c9" stroke-opacity=".13" stroke-width="2">
+<path d="M0 180H1920M0 360H1920M0 540H1920M0 720H1920M0 900H1920"/>
+<path d="M160 0V1080M360 0V1080M560 0V1080M760 0V1080M960 0V1080M1160 0V1080M1360 0V1080M1560 0V1080M1760 0V1080"/>
+</g>
+<g transform="translate(260 350)">
+<rect width="310" height="310" rx="62" fill="#0b1424" stroke="#258cff" stroke-opacity=".75" stroke-width="5"/>
+<circle cx="155" cy="155" r="93" fill="none" stroke="#2d9cff" stroke-width="24"/>
+<path d="M155 62a93 93 0 0 0 0 186" fill="none" stroke="#0b1424" stroke-width="42"/>
+<path d="M142 155l48 42-48 42" fill="none" stroke="#fff" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M202 239h43" stroke="#fff" stroke-width="12" stroke-linecap="round"/>
+</g>
+<text x="650" y="500" fill="#fff" font-family="sans-serif" font-size="104" font-weight="700">CarsonKali</text>
+<text x="656" y="575" fill="#77bfff" font-family="sans-serif" font-size="34" letter-spacing="5">KALI-BASED • XFCE • EXPERIMENTAL</text>
+<text x="656" y="635" fill="#8c9bb3" font-family="monospace" font-size="25">build • learn • explore</text>
+</svg>
