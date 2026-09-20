@@ -24,7 +24,6 @@ sudo lb config \
   --mirror-chroot "http://http.kali.org/kali" \
   --mirror-binary "http://http.kali.org/kali" \
   --security false \
-  --updates false
 
 # lb config runs as root, so hand the generated config tree back to the runner.
 sudo chown -R "$(id -u):$(id -g)" "$BUILD_DIR"
