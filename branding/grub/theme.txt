@@ -1,7 +1,5 @@
 # CarsonKali GRUB theme
-# Custom colors and branding for the CarsonKali live ISO.
-
-desktop-image: "carsonkali-grub.png"
+# Custom CarsonKali branding and colors for the live ISO.
 
 title-text: "CarsonKali"
 title-font: "DejaVu Sans Bold 28"
@@ -15,7 +13,6 @@ title-color: "#ffffff"
   item_font = "DejaVu Sans 18"
   item_color = "#d7e9ff"
   selected_item_color = "#ffffff"
-  selected_item_pixmap_style = "select_*.png"
   item_height = 38
   item_padding = 8
   icon_width = 32
