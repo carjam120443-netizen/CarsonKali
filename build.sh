@@ -62,7 +62,14 @@ set -e
 # XFCE's default panel configuration uses p=6 for the top position.
 # p=12 is the bottom border position.
 if [ -f /etc/xdg/xfce4/panel/default.xml ]; then
+    # XFCE stores panel placement as p=6 (top) and p=12 (bottom).
     sed -i 's/value="p=6;x=0;y=0"/value="p=12;x=0;y=0"/g' /etc/xdg/xfce4/panel/default.xml
+
+    # Force the same panel layout into the live user's profile so XFCE
+    # does not fall back to its own top-panel defaults.
+    mkdir -p /etc/skel/.config/xfce4/xfconf/xfce-perchannel-xml
+    cp /etc/xdg/xfce4/panel/default.xml \
+       /etc/skel/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-panel.xml
 fi
 
 # Apply the wallpaper through XFCE's default user configuration.
