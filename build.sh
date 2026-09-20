@@ -18,7 +18,9 @@ sudo lb config \
   --archive-areas "main contrib non-free non-free-firmware" \
   --bootappend-live "boot=live components" \
   --debian-installer false \
-  --iso-volume "CARSONKALI"
+  --iso-volume "CARSONKALI" \
+  --mirror-bootstrap "http://http.kali.org/kali" \
+  --mirror-chroot "http://http.kali.org/kali"
 
 # lb config runs as root, so hand the generated config tree back to the runner.
 sudo chown -R "$(id -u):$(id -g)" "$BUILD_DIR"
