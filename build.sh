@@ -16,12 +16,17 @@ mkdir -p "$WORK_DIR/kali-config/common/includes.chroot/usr/share/pixmaps"
 mkdir -p "$WORK_DIR/kali-config/common/includes.chroot/usr/share/backgrounds/carsonkali"
 mkdir -p "$WORK_DIR/kali-config/common/includes.chroot/etc/skel/Desktop"
 mkdir -p "$WORK_DIR/kali-config/common/hooks"
+mkdir -p "$WORK_DIR/kali-config/common/bootloaders/grub-pc/theme"
 mkdir -p "$WORK_DIR/kali-config/variant-xfce/package-lists"
 
 cp "$ROOT_DIR/branding/carsonkali-logo.svg" \
   "$WORK_DIR/kali-config/common/includes.chroot/usr/share/pixmaps/carsonkali-logo.svg"
 cp "$ROOT_DIR/branding/carsonkali-wallpaper.svg" \
   "$WORK_DIR/kali-config/common/includes.chroot/usr/share/backgrounds/carsonkali/carsonkali-wallpaper.svg"
+cp "$ROOT_DIR/branding/grub/config.cfg" \
+  "$WORK_DIR/kali-config/common/bootloaders/grub-pc/config.cfg"
+cp "$ROOT_DIR/branding/grub/theme.txt" \
+  "$WORK_DIR/kali-config/common/bootloaders/grub-pc/theme/theme.txt"
 
 cat > "$WORK_DIR/kali-config/common/includes.chroot/etc/motd" <<'EOF'
 CarsonKali
@@ -42,7 +47,7 @@ cat > "$WORK_DIR/kali-config/common/includes.chroot/etc/skel/Desktop/Install-Car
 Type=Application
 Name=Install CarsonKali
 Comment=Install CarsonKali to disk
-Exec=calamares
+Exec=pkexec calamares
 Icon=system-software-install
 Terminal=false
 Categories=System;Settings;
@@ -61,8 +66,18 @@ if [ -f /etc/xdg/xfce4/panel/default.xml ]; then
 fi
 
 # Apply the wallpaper through XFCE's default user configuration.
-mkdir -p /etc/skel/.config/xfce4/xfconf/xfce-perchannel-xml
-cat > /etc/skel/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-desktop.xml <<'XML'
+# Make the installer launcher available to the live user's actual Desktop.
+if id kali >/dev/null 2>&1; then
+    mkdir -p /home/kali/Desktop
+    cp /etc/skel/Desktop/Install-CarsonKali.desktop /home/kali/Desktop/Install-CarsonKali.desktop
+    chown kali:kali /home/kali/Desktop/Install-CarsonKali.desktop
+    chmod +x /home/kali/Desktop/Install-CarsonKali.desktop
+fi
+
+# Set a system-wide XFCE desktop default as well as the skeleton default.
+mkdir -p /etc/xdg/xfce4/xfconf/xfce-perchannel-xml
+cat > /etc/xdg/xfce4/xfconf/xfce-perchannel-xml/xfce4-desktop.xml
+ <<'XML'
 <?xml version="1.0" encoding="UTF-8"?>
 <channel name="xfce4-desktop" version="1.0">
   <property name="backdrop" type="empty">
@@ -77,6 +92,10 @@ cat > /etc/skel/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-desktop.xml <<'XM
   </property>
 </channel>
 XML
+
+mkdir -p /etc/skel/.config/xfce4/xfconf/xfce-perchannel-xml
+cp /etc/xdg/xfce4/xfconf/xfce-perchannel-xml/xfce4-desktop.xml \
+   /etc/skel/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-desktop.xml
 EOF
 chmod +x "$WORK_DIR/kali-config/common/hooks/0600-carsonkali-xfce.hook.chroot"
 
