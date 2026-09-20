@@ -20,6 +20,9 @@ sudo lb config \
   --debian-installer false \
   --iso-volume "CARSONKALI"
 
+# lb config runs as root, so hand the generated config tree back to the runner.
+sudo chown -R "$(id -u):$(id -g)" "$BUILD_DIR"
+
 mkdir -p config/package-lists config/includes.chroot/etc
 
 cat > config/package-lists/carsonkali.list.chroot <<'EOF'
