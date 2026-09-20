@@ -15,7 +15,31 @@ jobs:
       - name: Install build dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y live-build debootstrap squashfs-tools xorriso grub-pc-bin grub-efi-amd64-bin
+          sudo apt-get install -y git curl wget live-build debootstrap cdebootstrap squashfs-tools xorriso grub-pc-bin grub-efi-amd64-bin
+
+      - name: Prepare Kali build environment
+        run: |
+          set -euo pipefail
+
+          KEYRING_URL="$(curl -fsSL https://http.kali.org/pool/main/k/kali-archive-keyring/ | grep -oE 'href="kali-archive-keyring_[^"]+_all\.deb"' | sed 's/href="//;s/"//' | sort -V | tail -n1)"
+          LIVE_BUILD_URL="$(curl -fsSL https://http.kali.org/pool/main/l/live-build/ | grep -oE 'href="live-build_[^"]+_all\.deb"' | sed 's/href="//;s/"//' | sort -V | tail -n1)"
+
+          test -n "$KEYRING_URL"
+          test -n "$LIVE_BUILD_URL"
+
+          wget -q "https://http.kali.org/pool/main/k/kali-archive-keyring/$KEYRING_URL"
+          wget -q "https://http.kali.org/pool/main/l/live-build/$LIVE_BUILD_URL"
+
+          sudo dpkg -i "$KEYRING_URL"
+          sudo dpkg -i "$LIVE_BUILD_URL"
+
+          sudo apt-get install -f -y
+
+          sudo cp /usr/share/debootstrap/scripts/sid /tmp/kali
+          sed -i 's#debian-archive-keyring.gpg#kali-archive-keyring.gpg#g' /tmp/kali
+          sed -i '1a default_mirror http://http.kali.org/kali' /tmp/kali
+          sudo mv /tmp/kali /usr/share/debootstrap/scripts/kali
+          sudo ln -sf kali /usr/share/debootstrap/scripts/kali-rolling
 
       - name: Build ISO
         run: ./build.sh
