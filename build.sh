@@ -12,6 +12,7 @@ cd "$BUILD_DIR"
 sudo lb clean --purge || true
 
 sudo lb config \
+  --ignore-system-defaults \
   --distribution kali-rolling \
   --architectures amd64 \
   --binary-images iso-hybrid \
@@ -21,7 +22,9 @@ sudo lb config \
   --iso-volume "CARSONKALI" \
   --mirror-bootstrap "http://http.kali.org/kali" \
   --mirror-chroot "http://http.kali.org/kali" \
-  --mirror-binary "http://http.kali.org/kali"
+  --mirror-binary "http://http.kali.org/kali" \
+  --security false \
+  --updates false
 
 # lb config runs as root, so hand the generated config tree back to the runner.
 sudo chown -R "$(id -u):$(id -g)" "$BUILD_DIR"
