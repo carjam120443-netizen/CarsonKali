@@ -25,15 +25,14 @@ sudo lb config \
   --mirror-binary "http://http.kali.org/kali" \
   --security false
 
-# live-build reads these settings from its generated config during later
-# stages. Set them after lb config so lb_chroot_archives cannot add the
-# nonexistent kali-rolling-updates suite.
-cat > config/common <<'EOF'
+# lb config runs as root, so write the live-build overrides as root too.
+# These settings are consumed later by lb_chroot_archives.
+sudo tee config/common >/dev/null <<'EOF'
 LB_UPDATES="false"
 LB_SECURITY="false"
 EOF
 
-# lb config runs as root, so hand the generated config tree back to the runner.
+# Hand the generated config tree back to the runner for custom files.
 sudo chown -R "$(id -u):$(id -g)" "$BUILD_DIR"
 
 mkdir -p config/package-lists config/includes.chroot/etc
