@@ -15,7 +15,7 @@ mkdir -p "$WORK_DIR/kali-config/common/includes.chroot/etc"
 mkdir -p "$WORK_DIR/kali-config/common/includes.chroot/usr/share/pixmaps"
 mkdir -p "$WORK_DIR/kali-config/common/includes.chroot/usr/share/backgrounds/carsonkali"
 mkdir -p "$WORK_DIR/kali-config/common/includes.chroot/etc/skel/Desktop"
-mkdir -p "$WORK_DIR/kali-config/common/hooks"
+mkdir -p "$WORK_DIR/kali-config/variant-xfce/hooks/live"
 mkdir -p "$WORK_DIR/kali-config/common/bootloaders/grub-pc/theme"
 mkdir -p "$WORK_DIR/kali-config/variant-xfce/package-lists"
 
@@ -54,26 +54,23 @@ Categories=System;Settings;
 EOF
 chmod +x "$WORK_DIR/kali-config/common/includes.chroot/etc/skel/Desktop/Install-CarsonKali.desktop"
 
-# Set CarsonKali's wallpaper and move the XFCE panel to the bottom.
-cat > "$WORK_DIR/kali-config/common/hooks/0600-carsonkali-xfce.hook.chroot" <<'EOF'
+# Kali's live-build framework applies live-image hooks from the variant's
+# hooks/live directory. Keep all live XFCE customization there.
+cat > "$WORK_DIR/kali-config/variant-xfce/hooks/live/0600-carsonkali-xfce.hook.chroot" <<'EOF'
 #!/bin/sh
 set -e
 
 # XFCE's default panel configuration uses p=6 for the top position.
 # p=12 is the bottom border position.
 if [ -f /etc/xdg/xfce4/panel/default.xml ]; then
-    # XFCE stores panel placement as p=6 (top) and p=12 (bottom).
     sed -i 's/value="p=6;x=0;y=0"/value="p=12;x=0;y=0"/g' /etc/xdg/xfce4/panel/default.xml
 
-    # Force the same panel layout into the live user's profile so XFCE
-    # does not fall back to its own top-panel defaults.
     mkdir -p /etc/skel/.config/xfce4/xfconf/xfce-perchannel-xml
     cp /etc/xdg/xfce4/panel/default.xml \
        /etc/skel/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-panel.xml
 fi
 
-# Apply the wallpaper through XFCE's default user configuration.
-# Make the installer launcher available to the live user's actual Desktop.
+# Make the installer launcher available to the live user's Desktop.
 if id kali >/dev/null 2>&1; then
     mkdir -p /home/kali/Desktop
     cp /etc/skel/Desktop/Install-CarsonKali.desktop /home/kali/Desktop/Install-CarsonKali.desktop
@@ -81,7 +78,7 @@ if id kali >/dev/null 2>&1; then
     chmod +x /home/kali/Desktop/Install-CarsonKali.desktop
 fi
 
-# Set a system-wide XFCE desktop default as well as the skeleton default.
+# Set a system-wide XFCE desktop default and the skeleton default.
 mkdir -p /etc/xdg/xfce4/xfconf/xfce-perchannel-xml
 cat > /etc/xdg/xfce4/xfconf/xfce-perchannel-xml/xfce4-desktop.xml <<'XML'
 <?xml version="1.0" encoding="UTF-8"?>
@@ -103,7 +100,7 @@ mkdir -p /etc/skel/.config/xfce4/xfconf/xfce-perchannel-xml
 cp /etc/xdg/xfce4/xfconf/xfce-perchannel-xml/xfce4-desktop.xml \
    /etc/skel/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-desktop.xml
 EOF
-chmod +x "$WORK_DIR/kali-config/common/hooks/0600-carsonkali-xfce.hook.chroot"
+chmod +x "$WORK_DIR/kali-config/variant-xfce/hooks/live/0600-carsonkali-xfce.hook.chroot"
 
 cd "$WORK_DIR"
 sudo ./build.sh --arch amd64 --variant xfce --verbose
