@@ -22,10 +22,9 @@ jobs:
           set -euo pipefail
 
           KEYRING_URL="$(curl -fsSL https://http.kali.org/pool/main/k/kali-archive-keyring/ | grep -oE 'href="kali-archive-keyring_[^"]+_all\.deb"' | sed 's/href="//;s/"//' | sort -V | tail -n1)"
-          LIVE_BUILD_URL="$(curl -fsSL https://http.kali.org/pool/main/l/live-build/ | grep -oE 'href="live-build_[^"]+_all\.deb"' | sed 's/href="//;s/"//' | sort -V | tail -n1)"
+          LIVE_BUILD_URL="live-build_20250814+kali3_all.deb"
 
           test -n "$KEYRING_URL"
-          test -n "$LIVE_BUILD_URL"
 
           wget -q "https://http.kali.org/pool/main/k/kali-archive-keyring/$KEYRING_URL"
           wget -q "https://http.kali.org/pool/main/l/live-build/$LIVE_BUILD_URL"
