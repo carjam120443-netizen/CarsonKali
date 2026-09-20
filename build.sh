@@ -25,18 +25,14 @@ sudo lb config \
   --mirror-binary "http://http.kali.org/kali" \
   --security false
 
-# Disable update/security suites before live-build generates the archive list.
-sudo tee config/common >/dev/null <<'EOF'
+# Kali Rolling has a single rolling suite; it does not publish a
+# separate kali-rolling-updates or kali-rolling-security suite.
+# live-build reads these two settings from config/chroot when it
+# generates /etc/apt/sources.list during lb_chroot_archives.
+sudo tee config/chroot >/dev/null <<'EOF'
 LB_UPDATES="false"
 LB_SECURITY="false"
 EOF
-
-# Remove any generated Debian/Ubuntu update or security suites.
-sudo find config -type f -print0 | sudo xargs -0r sed -i \
-  -e '/kali-rolling-updates/d' \
-  -e '/kali-rolling-security/d' \
-  -e '/security\.debian\.org/d' \
-  -e '/security\.ubuntu\.com/d'
 
 # Hand the generated config tree back to the runner for custom files.
 sudo chown -R "$(id -u):$(id -g)" "$BUILD_DIR"
