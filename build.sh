@@ -23,7 +23,8 @@ sudo lb config \
   --mirror-bootstrap "http://http.kali.org/kali" \
   --mirror-chroot "http://http.kali.org/kali" \
   --mirror-binary "http://http.kali.org/kali" \
-  --security false
+  --security false \
+  --updates false
 
 # Kali Rolling has a single rolling suite; it does not publish a
 # separate kali-rolling-updates or kali-rolling-security suite.
