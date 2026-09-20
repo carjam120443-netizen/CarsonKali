@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title desc">
+  <title>CarsonKali logo</title>
+  <desc>Custom CarsonKali logo: a stylized blue C around a dark terminal prompt.</desc>
+  <rect width="512" height="512" rx="96" fill="#101827"/>
+  <circle cx="256" cy="256" r="174" fill="none" stroke="#4aa3ff" stroke-width="34"/>
+  <path d="M315 167c-19-18-43-28-70-28-64 0-116 52-116 117s52 117 116 117c27 0 51-10 70-28" fill="none" stroke="#78c4ff" stroke-width="30" stroke-linecap="round"/>
+  <path d="M183 239l45 38-45 38" fill="none" stroke="#fff" stroke-width="24" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M250 315h83" stroke="#fff" stroke-width="24" stroke-linecap="round"/>
+</svg>
