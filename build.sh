@@ -2,60 +2,38 @@
 set -euo pipefail
 
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+WORK_DIR="$ROOT_DIR/.kali-live"
 OUTPUT_DIR="$ROOT_DIR/output"
-BUILD_DIR="$ROOT_DIR/.build"
 
-mkdir -p "$OUTPUT_DIR" "$BUILD_DIR"
-command -v lb >/dev/null || { echo "Error: live-build is not installed."; exit 1; }
+mkdir -p "$OUTPUT_DIR"
 
-cd "$BUILD_DIR"
-sudo lb clean --purge || true
+rm -rf "$WORK_DIR"
+git clone --depth 1 https://gitlab.com/kalilinux/build-scripts/kali-live.git "$WORK_DIR"
 
-sudo lb config \
-  --ignore-system-defaults \
-  --distribution kali-rolling \
-  --architectures amd64 \
-  --binary-images iso-hybrid \
-  --archive-areas "main contrib non-free non-free-firmware" \
-  --bootappend-live "boot=live components" \
-  --debian-installer false \
-  --iso-volume "CARSONKALI" \
-  --mirror-bootstrap "http://http.kali.org/kali" \
-  --mirror-chroot "http://http.kali.org/kali" \
-  --mirror-binary "http://http.kali.org/kali" \
-  --security false
+# Use Kali's maintained Live ISO framework, then layer CarsonKali customizations on top.
+mkdir -p "$WORK_DIR/kali-config/common/includes.chroot/etc"
+mkdir -p "$WORK_DIR/kali-config/common/includes.chroot/usr/share/pixmaps"
+mkdir -p "$WORK_DIR/kali-config/variant-xfce/package-lists"
 
-# Kali Rolling has a single rolling suite; it does not publish a
-# separate kali-rolling-updates or kali-rolling-security suite.
-# live-build reads these two settings from config/chroot when it
-# generates /etc/apt/sources.list during lb_chroot_archives.
-sudo tee config/chroot >/dev/null <<'EOF'
-LB_UPDATES="false"
-LB_SECURITY="false"
-EOF
+cp "$ROOT_DIR/branding/carsonkali-logo.svg"   "$WORK_DIR/kali-config/common/includes.chroot/usr/share/pixmaps/carsonkali-logo.svg"
 
-# Hand the generated config tree back to the runner for custom files.
-sudo chown -R "$(id -u):$(id -g)" "$BUILD_DIR"
-
-mkdir -p config/package-lists config/includes.chroot/etc
-
-cat > config/package-lists/carsonkali.list.chroot <<'EOF'
-kali-desktop-xfce
-kali-linux-default
-firefox-esr
-network-manager
-EOF
-
-cat > config/includes.chroot/etc/motd <<'EOF'
+cat > "$WORK_DIR/kali-config/common/includes.chroot/etc/motd" <<'EOF'
 CarsonKali
 
 Experimental Kali-based distribution.
 Use only on systems you are authorized to test.
 EOF
 
-sudo lb build
+cat > "$WORK_DIR/kali-config/variant-xfce/package-lists/carsonkali.list.chroot" <<'EOF'
+kali-linux-default
+firefox-esr
+network-manager
+EOF
 
-ISO="$(find . -maxdepth 1 -type f -name '*.iso' -print -quit)"
+cd "$WORK_DIR"
+sudo ./build.sh --arch amd64 --variant xfce --verbose
+
+ISO="$(find "$WORK_DIR/images" -maxdepth 2 -type f -name '*.iso' -print -quit)"
 [ -n "$ISO" ] || { echo "Error: no ISO was produced."; exit 1; }
 
 cp "$ISO" "$OUTPUT_DIR/CarsonKali-amd64.iso"
