@@ -13,9 +13,15 @@ git clone --depth 1 https://gitlab.com/kalilinux/build-scripts/kali-live.git "$W
 # Use Kali's maintained Live ISO framework, then layer CarsonKali customizations on top.
 mkdir -p "$WORK_DIR/kali-config/common/includes.chroot/etc"
 mkdir -p "$WORK_DIR/kali-config/common/includes.chroot/usr/share/pixmaps"
+mkdir -p "$WORK_DIR/kali-config/common/includes.chroot/usr/share/backgrounds/carsonkali"
+mkdir -p "$WORK_DIR/kali-config/common/includes.chroot/etc/skel/Desktop"
+mkdir -p "$WORK_DIR/kali-config/common/hooks"
 mkdir -p "$WORK_DIR/kali-config/variant-xfce/package-lists"
 
-cp "$ROOT_DIR/branding/carsonkali-logo.svg"   "$WORK_DIR/kali-config/common/includes.chroot/usr/share/pixmaps/carsonkali-logo.svg"
+cp "$ROOT_DIR/branding/carsonkali-logo.svg" \
+  "$WORK_DIR/kali-config/common/includes.chroot/usr/share/pixmaps/carsonkali-logo.svg"
+cp "$ROOT_DIR/branding/carsonkali-wallpaper.svg" \
+  "$WORK_DIR/kali-config/common/includes.chroot/usr/share/backgrounds/carsonkali/carsonkali-wallpaper.svg"
 
 cat > "$WORK_DIR/kali-config/common/includes.chroot/etc/motd" <<'EOF'
 CarsonKali
@@ -28,7 +34,51 @@ cat > "$WORK_DIR/kali-config/variant-xfce/package-lists/carsonkali.list.chroot" 
 kali-linux-default
 firefox-esr
 network-manager
+calamares
 EOF
+
+cat > "$WORK_DIR/kali-config/common/includes.chroot/etc/skel/Desktop/Install-CarsonKali.desktop" <<'EOF'
+[Desktop Entry]
+Type=Application
+Name=Install CarsonKali
+Comment=Install CarsonKali to disk
+Exec=calamares
+Icon=system-software-install
+Terminal=false
+Categories=System;Settings;
+EOF
+chmod +x "$WORK_DIR/kali-config/common/includes.chroot/etc/skel/Desktop/Install-CarsonKali.desktop"
+
+# Set CarsonKali's wallpaper and move the XFCE panel to the bottom.
+cat > "$WORK_DIR/kali-config/common/hooks/0600-carsonkali-xfce.hook.chroot" <<'EOF'
+#!/bin/sh
+set -e
+
+# XFCE's default panel configuration uses p=6 for the top position.
+# p=12 is the bottom border position.
+if [ -f /etc/xdg/xfce4/panel/default.xml ]; then
+    sed -i 's/value="p=6;x=0;y=0"/value="p=12;x=0;y=0"/g' /etc/xdg/xfce4/panel/default.xml
+fi
+
+# Apply the wallpaper through XFCE's default user configuration.
+mkdir -p /etc/skel/.config/xfce4/xfconf/xfce-perchannel-xml
+cat > /etc/skel/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-desktop.xml <<'XML'
+<?xml version="1.0" encoding="UTF-8"?>
+<channel name="xfce4-desktop" version="1.0">
+  <property name="backdrop" type="empty">
+    <property name="screen0" type="empty">
+      <property name="monitor0" type="empty">
+        <property name="workspace0" type="empty">
+          <property name="last-image" type="string" value="/usr/share/backgrounds/carsonkali/carsonkali-wallpaper.svg"/>
+          <property name="image-style" type="int" value="5"/>
+        </property>
+      </property>
+    </property>
+  </property>
+</channel>
+XML
+EOF
+chmod +x "$WORK_DIR/kali-config/common/hooks/0600-carsonkali-xfce.hook.chroot"
 
 cd "$WORK_DIR"
 sudo ./build.sh --arch amd64 --variant xfce --verbose
