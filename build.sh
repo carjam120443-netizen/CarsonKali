@@ -9,9 +9,16 @@ mkdir -p "$OUTPUT_DIR" "$BUILD_DIR"
 command -v lb >/dev/null || { echo "Error: live-build is not installed."; exit 1; }
 
 cd "$BUILD_DIR"
-lb clean --purge || true
+sudo lb clean --purge || true
 
-lb config   --distribution kali-rolling   --architectures amd64   --binary-images iso-hybrid   --archive-areas "main contrib non-free non-free-firmware"   --bootappend-live "boot=live components"   --debian-installer false
+sudo lb config \
+  --distribution kali-rolling \
+  --architectures amd64 \
+  --binary-images iso-hybrid \
+  --archive-areas "main contrib non-free non-free-firmware" \
+  --bootappend-live "boot=live components" \
+  --debian-installer false \
+  --iso-volume "CARSONKALI"
 
 mkdir -p config/package-lists config/includes.chroot/etc
 
@@ -29,7 +36,7 @@ Experimental Kali-based distribution.
 Use only on systems you are authorized to test.
 EOF
 
-lb build
+sudo lb build
 
 ISO="$(find . -maxdepth 1 -type f -name '*.iso' -print -quit)"
 [ -n "$ISO" ] || { echo "Error: no ISO was produced."; exit 1; }
