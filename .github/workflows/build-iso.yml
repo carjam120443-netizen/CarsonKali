@@ -36,8 +36,8 @@ jobs:
           sudo apt-get install -f -y
 
           sudo cp /usr/share/debootstrap/scripts/sid /tmp/kali
-          sed -i 's#debian-archive-keyring.gpg#kali-archive-keyring.gpg#g' /tmp/kali
-          sed -i '1a default_mirror http://http.kali.org/kali' /tmp/kali
+          sudo sed -i 's#debian-archive-keyring.gpg#kali-archive-keyring.gpg#g' /tmp/kali
+          sudo sed -i '1a default_mirror http://http.kali.org/kali' /tmp/kali
           sudo mv /tmp/kali /usr/share/debootstrap/scripts/kali
           sudo ln -sf kali /usr/share/debootstrap/scripts/kali-rolling
 
