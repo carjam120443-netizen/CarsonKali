@@ -1,0 +1,27 @@
+name: Build CarsonKali ISO
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install build dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y live-build debootstrap squashfs-tools xorriso grub-pc-bin grub-efi-amd64-bin
+
+      - name: Build ISO
+        run: ./build.sh
+
+      - name: Upload ISO
+        uses: actions/upload-artifact@v4
+        with:
+          name: CarsonKali-amd64
+          path: output/*.iso
