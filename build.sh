@@ -11,13 +11,7 @@ command -v lb >/dev/null || { echo "Error: live-build is not installed."; exit 1
 cd "$BUILD_DIR"
 sudo lb clean --purge || true
 
-# This Ubuntu-hosted live-build uses LB_UPDATES internally even though the
-# installed CLI does not expose an --updates option. Disable it through the
-# live-build configuration environment before generating the config tree.
-export LB_UPDATES=false
-export LB_SECURITY=false
-
-sudo -E lb config \
+sudo lb config \
   --ignore-system-defaults \
   --distribution kali-rolling \
   --architectures amd64 \
@@ -29,7 +23,15 @@ sudo -E lb config \
   --mirror-bootstrap "http://http.kali.org/kali" \
   --mirror-chroot "http://http.kali.org/kali" \
   --mirror-binary "http://http.kali.org/kali" \
-  --security false \
+  --security false
+
+# live-build reads these settings from its generated config during later
+# stages. Set them after lb config so lb_chroot_archives cannot add the
+# nonexistent kali-rolling-updates suite.
+cat > config/common <<'EOF'
+LB_UPDATES="false"
+LB_SECURITY="false"
+EOF
 
 # lb config runs as root, so hand the generated config tree back to the runner.
 sudo chown -R "$(id -u):$(id -g)" "$BUILD_DIR"
