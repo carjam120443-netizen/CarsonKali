@@ -25,6 +25,13 @@ sudo lb config \
   --mirror-binary "http://http.kali.org/kali" \
   --security false \
 
+# Remove Debian-style update/security suites that this live-build version
+# can generate even when the target distribution is Kali Rolling.
+sudo find config -type f \( -name '*.list' -o -name '*.sources' \) -print0 2>/dev/null |
+  sudo xargs -0 -r sed -i \
+    -e '/kali-rolling-updates/d' \
+    -e '/kali-rolling-security/d'
+
 # lb config runs as root, so hand the generated config tree back to the runner.
 sudo chown -R "$(id -u):$(id -g)" "$BUILD_DIR"
 
