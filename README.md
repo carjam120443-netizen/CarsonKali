@@ -1,3 +1,10 @@
+> [!WARNING]
+> **Project retired — no longer maintained.**
+>
+> CarsonKali is an old experiment and has been retired. I will not be updating it, fixing bugs, or publishing newer versions. Existing files and build instructions are provided as-is and may be outdated or no longer work.
+>
+> Looking for a newer Carson Linux project? Check out **[CarsonOS](https://github.com/carjam120443-netizen/carsonOS)**, my Arch-based distro project. If you'd like a newer working version inspired by CarsonKali, please open an issue in CarsonOS and describe what you'd like to see.
+
 # CarsonKali
 
 <p align="center">
@@ -5,26 +12,28 @@
 </p>
 
 <p align="center">
-  <strong>A personal Kali Linux-based distribution built by Carson.</strong>
+  <strong>A personal Kali Linux-based distribution experiment built by Carson.</strong>
 </p>
 
-> ⚠️ CarsonKali is an experimental project intended for authorized security testing, learning, development, and lab environments only.
+## About
 
-## What is CarsonKali?
+CarsonKali was an experimental project based on the Kali Linux ecosystem, exploring Carson branding, reproducible ISO builds, VirtualBox testing, a curated desktop/package set, and potential Carson-specific tools.
 
-CarsonKali starts from the Kali Linux ecosystem and adds a custom build layer for Carson branding, reproducible ISO builds, VirtualBox testing, a curated desktop/package set, and future Carson-specific tools.
+## Project status
+
+**Retired / no longer maintained.** This repository remains available as a record of an older experiment, but it is not actively maintained. Do not expect updates, support, bug fixes, or new releases.
 
 ## Branding
 
 The custom CarsonKali logo and other visual assets live in the [`branding/`](branding/) directory.
 
-## Build
+## Historical build notes
 
-The project is designed to build an amd64 live ISO with GitHub Actions.
+The project was designed to build an amd64 live ISO with GitHub Actions. These instructions and workflows may no longer work.
 
-## Status
+## Successor project
 
-🚧 Early development — initial build structure.
+For a newer Carson Linux project, visit **[CarsonOS](https://github.com/carjam120443-netizen/carsonOS)**. CarsonOS is Arch-based. If you want a feature or a newer working take on something from CarsonKali, open an issue in CarsonOS.
 
 ## License
 
