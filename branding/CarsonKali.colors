@@ -29,7 +29,6 @@ ForegroundLink=85,217,232
 ForegroundNegative=244,105,123
 ForegroundNeutral=245,190,91
 ForegroundNormal=235,240,255
-Foreground positif=85,217,232
 ForegroundVisited=178,151,255
 [Colors:Selection]
 BackgroundAlternate=75,58,145
