@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="3840" height="2160" viewBox="0 0 3840 2160">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="3840" y2="2160" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#080B14"/><stop offset=".58" stop-color="#111329"/><stop offset="1" stop-color="#07151D"/>
+    </linearGradient>
+    <radialGradient id="violet"><stop stop-color="#7657F5" stop-opacity=".42"/><stop offset="1" stop-color="#7657F5" stop-opacity="0"/></radialGradient>
+    <radialGradient id="cyan"><stop stop-color="#42D6E8" stop-opacity=".25"/><stop offset="1" stop-color="#42D6E8" stop-opacity="0"/></radialGradient>
+    <linearGradient id="line" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#A58CFF" stop-opacity=".55"/><stop offset="1" stop-color="#52D8E8" stop-opacity=".06"/></linearGradient>
+    <pattern id="grid" width="96" height="96" patternUnits="userSpaceOnUse"><path d="M96 0H0V96" fill="none" stroke="#A9B4D8" stroke-opacity=".055" stroke-width="2"/></pattern>
+  </defs>
+  <rect width="3840" height="2160" fill="url(#bg)"/>
+  <ellipse cx="2860" cy="650" rx="1450" ry="1050" fill="url(#violet)"/>
+  <ellipse cx="900" cy="1740" rx="1300" ry="850" fill="url(#cyan)"/>
+  <rect width="3840" height="2160" fill="url(#grid)"/>
+  <g fill="none" stroke="url(#line)" stroke-width="3">
+    <path d="M1950 0 3840 1890M2150 0 3840 1690M2350 0 3840 1490M2550 0 3840 1290"/>
+    <path d="M0 1330 1330 0M0 1530 1530 0M0 1730 1730 0"/>
+    <circle cx="2840" cy="1080" r="690"/><circle cx="2840" cy="1080" r="820"/><circle cx="2840" cy="1080" r="950"/>
+  </g>
+  <g transform="translate(390 710)">
+    <rect x="0" y="0" width="12" height="420" rx="6" fill="#8A6BFF"/>
+    <text x="70" y="170" fill="#F0F2FF" font-family="Inter, Noto Sans, sans-serif" font-size="168" font-weight="700" letter-spacing="-7">CarsonKali</text>
+    <text x="78" y="265" fill="#9AA6C7" font-family="Inter, Noto Sans, sans-serif" font-size="48" font-weight="500" letter-spacing="13">EXPLORE • LEARN • BUILD</text>
+    <path d="M76 330H850" stroke="#55D9E8" stroke-opacity=".7" stroke-width="5"/>
+  </g>
+  <g transform="translate(3000 1440)" opacity=".9">
+    <path d="M0 0h180l-250 360h-180L0 0Z" fill="#8A6BFF" fill-opacity=".14" stroke="#9B7BFF" stroke-opacity=".6" stroke-width="3"/>
+    <path d="M-220 360h180L210 0H30L-220 360Z" fill="#55D9E8" fill-opacity=".12" stroke="#55D9E8" stroke-opacity=".45" stroke-width="3"/>
+  </g>
+</svg>
