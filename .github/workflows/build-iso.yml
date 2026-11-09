@@ -1,0 +1,47 @@
+name: Build CarsonKali ISO
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: Build AMD64 KDE Live ISO
+    runs-on: ubuntu-24.04
+    timeout-minutes: 360
+    container:
+      image: kalilinux/kali-rolling:latest
+      options: --privileged
+
+    steps:
+      - name: Check out CarsonKali
+        uses: actions/checkout@v4
+
+      - name: Install build dependencies
+        run: |
+          apt-get update
+          DEBIAN_FRONTEND=noninteractive apt-get install -y \
+            ca-certificates \
+            git \
+            live-build \
+            apt-utils \
+            qemu-user-binfmt
+
+      - name: Build CarsonKali
+        env:
+          BUILD_DEBUG: "1"
+        run: |
+          chmod +x scripts/build-iso.sh
+          ./scripts/build-iso.sh
+
+      - name: Upload ISO and checksum
+        uses: actions/upload-artifact@v4
+        with:
+          name: CarsonKali-0.1.0-alpha-amd64
+          path: |
+            dist/*.iso
+            dist/*.sha256
+          if-no-files-found: error
+          retention-days: 7
