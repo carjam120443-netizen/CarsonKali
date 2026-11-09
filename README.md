@@ -12,6 +12,8 @@ CarsonKali combines a familiar desktop environment with a curated collection of 
 - KDE Plasma desktop
 - Independent CarsonKali visual identity
 - Everyday desktop applications
+- Calamares installer package
+- Zsh shell
 - Curated networking and system-diagnostic tools
 - Reproducible, documented AMD64 Live ISO builds
 - VirtualBox-first testing
@@ -44,7 +46,7 @@ The ISO and SHA-256 checksum are written to `dist/`.
 
 ## Current status
 
-The project is in early development. The repository now contains original CarsonKali logo and wallpaper artwork plus a KDE color scheme, and the ISO build script installs these assets into the live filesystem. The wallpaper and color scheme are available to select in KDE, but are not yet forced as defaults. Plymouth and GRUB branding, default Plasma configuration, installer integration, and VirtualBox validation remain future work.
+The project is in early development. The repository now contains original CarsonKali logo and wallpaper artwork plus a KDE color scheme, and the ISO build script installs these assets into the live filesystem. The wallpaper and color scheme are available to select in KDE, but are not yet forced as defaults. Plymouth and GRUB branding, default Plasma configuration, Calamares installer configuration/integration, and VirtualBox validation remain future work.
 
 ## License
 
