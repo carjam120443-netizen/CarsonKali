@@ -1,0 +1,6 @@
+# Build output and downloaded upstream build tree
+.build/
+dist/*.iso
+dist/*.img
+dist/*.log
+dist/*.sha256
