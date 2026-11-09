@@ -2,6 +2,14 @@ name: Build CarsonKali ISO
 
 on:
   workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - '.github/workflows/build-iso.yml'
+      - 'scripts/**'
+      - 'kali-config/**'
+      - 'branding/**'
 
 permissions:
   contents: read
