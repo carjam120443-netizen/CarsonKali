@@ -37,14 +37,14 @@ The ISO and SHA-256 checksum are written to `dist/`.
 ## Project layout
 
 - `kali-config/` — CarsonKali package and live-build configuration
-- `branding/` — independent visual identity assets and guidelines
+- `branding/` — original logo, wallpaper, KDE color scheme, and future boot artwork
 - `scripts/` — build and verification scripts
 - `.github/workflows/` — manually triggered ISO build workflow
 - `docs/` — build instructions and roadmap
 
 ## Current status
 
-The project is in early development. The first milestone is a bootable KDE Live ISO. Installer integration, full branding, and additional desktop customization will follow after the base image is tested.
+The project is in early development. The repository now contains original CarsonKali logo and wallpaper artwork plus a KDE color scheme, and the ISO build script installs these assets into the live filesystem. The wallpaper and color scheme are available to select in KDE, but are not yet forced as defaults. Plymouth and GRUB branding, default Plasma configuration, installer integration, and VirtualBox validation remain future work.
 
 ## License
 
