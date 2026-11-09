@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512" role="img" aria-labelledby="title desc">
+  <title id="title">CarsonKali CK mark</title>
+  <desc id="desc">An original geometric monogram in violet and cyan on a charcoal background.</desc>
+  <defs>
+    <linearGradient id="g" x1="72" y1="80" x2="438" y2="432" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#9B7BFF"/><stop offset=".55" stop-color="#7657F5"/><stop offset="1" stop-color="#55D9E8"/>
+    </linearGradient>
+    <linearGradient id="edge" x1="92" y1="90" x2="420" y2="420" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF" stop-opacity=".22"/><stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="112" fill="#0B0E18"/>
+  <rect x="18" y="18" width="476" height="476" rx="96" fill="none" stroke="url(#edge)" stroke-width="2"/>
+  <path d="M238 126H176c-38 0-68 30-68 68v124c0 38 30 68 68 68h62v-62h-54c-8 0-14-6-14-14V202c0-8 6-14 14-14h54v-62Z" fill="url(#g)"/>
+  <path d="M270 126h66l-91 130 91 130h-66l-91-130 91-130Z" fill="#EAF0FF"/>
+  <path d="M350 126h62v102h-62zM350 284h62v102h-62z" fill="url(#g)"/>
+  <path d="M412 126v260h-62V126h62Z" fill="url(#g)" opacity=".0"/>
+  <path d="M350 126h62v260h-62z" fill="url(#g)"/>
+</svg>
