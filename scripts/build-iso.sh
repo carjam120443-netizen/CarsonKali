@@ -51,9 +51,19 @@ else
     git -C "$UPSTREAM" pull --ff-only
 fi
 
-echo "[2/4] Applying CarsonKali KDE package selection..."
+echo "[2/4] Applying CarsonKali package selection and visual identity..."
 install -D -m 0644 "$PACKAGE_LIST" \
     "$UPSTREAM/kali-config/variant-kde/package-lists/kali.list.chroot"
+
+INCLUDES="$UPSTREAM/kali-config/common/includes.chroot"
+install -D -m 0644 "$ROOT/branding/wallpapers/carsonkali-default.svg" \
+    "$INCLUDES/usr/share/backgrounds/carsonkali/carsonkali-default.svg"
+install -D -m 0644 "$ROOT/branding/icons/carsonkali-mark.svg" \
+    "$INCLUDES/usr/share/icons/hicolor/scalable/apps/carsonkali.svg"
+install -D -m 0644 "$ROOT/branding/icons/carsonkali-mark.svg" \
+    "$INCLUDES/usr/share/pixmaps/carsonkali.svg"
+install -D -m 0644 "$ROOT/branding/CarsonKali.colors" \
+    "$INCLUDES/usr/share/color-schemes/CarsonKali.colors"
 
 echo "[3/4] Building CarsonKali Live ISO..."
 mkdir -p "$OUTPUT"
