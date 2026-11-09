@@ -24,7 +24,16 @@ chmod +x scripts/build-iso.sh
 sudo ./scripts/build-iso.sh
 ```
 
-The script clones the official Kali `kali-live` build-scripts into the ignored `.build/` directory, replaces the upstream KDE package list with CarsonKali's curated list, and builds the `kali-rolling` KDE variant.
+The script clones the official Kali `kali-live` build scripts into the ignored `.build/` directory, replaces the upstream KDE package list with CarsonKali's curated list, and installs the project's original branding assets into the live filesystem before building the `kali-rolling` KDE variant.
+
+The build currently installs these assets:
+
+- `/usr/share/backgrounds/carsonkali/carsonkali-default.svg`
+- `/usr/share/icons/hicolor/scalable/apps/carsonkali.svg`
+- `/usr/share/pixmaps/carsonkali.svg`
+- `/usr/share/color-schemes/CarsonKali.colors`
+
+The wallpaper and KDE color scheme are available in the live desktop but are not yet configured as defaults. Plymouth and GRUB still need their own CarsonKali themes.
 
 Output:
 
