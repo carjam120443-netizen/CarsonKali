@@ -7,6 +7,9 @@ kali-linux-core
 kali-desktop-live
 kali-desktop-kde
 
+# Installer
+calamares
+
 # Everyday desktop applications
 firefox-esr
 konsole
@@ -18,7 +21,8 @@ libreoffice-writer
 libreoffice-calc
 flatpak
 
-# System utilities
+# Shells and system utilities
+zsh
 git
 curl
 wget
