@@ -1,0 +1,49 @@
+# CarsonKali 0.1.0 Alpha
+# This file replaces Kali's default KDE package list during the build.
+# Keep the base desktop and core system; do not install kali-linux-default.
+
+# Kali base and KDE desktop
+kali-linux-core
+kali-desktop-live
+kali-desktop-kde
+
+# Everyday desktop applications
+firefox-esr
+konsole
+dolphin
+ark
+kate
+vlc
+libreoffice-writer
+libreoffice-calc
+flatpak
+
+# System utilities
+git
+curl
+wget
+htop
+btop
+fastfetch
+vim
+nano
+unzip
+zip
+plasma-systemmonitor
+pavucontrol
+
+# Audio support
+pipewire
+wireplumber
+pipewire-audio
+
+# Networking and system diagnostics
+nmap
+wireshark
+tcpdump
+traceroute
+dnsutils
+whois
+net-tools
+iperf3
+mtr-tiny
